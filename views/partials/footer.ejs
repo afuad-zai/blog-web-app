@@ -1,6 +1,35 @@
-    </main>
-    <footer>
-            <p>Copyright @ <%= new Date().getFullYear() %> </p>
-    </footer>
+</main>
+
+<div class="container">
+  <footer
+    class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
+  >
+    <div class="col-md-4 d-flex align-items-center">
+      <a
+        href="/"
+        class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1"
+      >
+        <img
+          src="/images/b-logo-black.svg"
+          class="bi"
+          alt="B Icon"
+          width="30"
+          height="24"
+        />
+      </a>
+      <span class="mb-3 mb-md-0 text-body-secondary"
+        >© <%= new Date().getFullYear() %> Zainudin, Ahmad Fuad</span
+      >
+    </div>
+
+    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+      <li class="ms-3">
+        <a class="text-body-secondary" href="https://github.com/afuad-zai"
+          ><img class="bi" width="24" height="24" src="/images/github.svg"
+        /></a>
+      </li>
+    </ul>
+  </footer>
+</div>
 </body>
 </html>
