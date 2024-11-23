@@ -1,0 +1,15 @@
+<%- include("partials/header.ejs") %>
+
+<div class="row g-5">
+  <div class="col-md-8">
+    <article class="blog-post">
+      <h2 class="display-5 link-body-emphasis mb-1"><%= blog.title %></h2>
+      <p class="blog-post-meta"><%= blog.date %></p>
+      <p><%= blog.subtitle %></p>
+      <hr />
+      <p><%- blog.body %></p>
+    </article>
+  </div>
+</div>
+
+<%- include("partials/footer.ejs") %>
