@@ -9,7 +9,7 @@
   </symbol>
 </svg>
 
-<div class="row my-2">
+<div class="row">
   <% for(var i = 0; i < blogs.length; i++) { %>
 
   <div class="col-md-6">
@@ -20,7 +20,10 @@
         <h3 class="mb-0"><%= blogs[i].title %></h3>
         <div class="mb-1 text-body-secondary"><%= blogs[i].date %></div>
         <p class="card-text mb-auto"><%= blogs[i].subtitle %></p>
-        <a href="/blog/<%= i %>" class="icon-link gap-1 icon-link-hover stretched-link">
+        <a
+          href="/blog/<%= i %>"
+          class="icon-link gap-1 icon-link-hover stretched-link"
+        >
           Continue reading
           <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
         </a>
