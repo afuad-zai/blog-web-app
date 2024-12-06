@@ -12,35 +12,26 @@ const formatter = new Intl.DateTimeFormat("en-us", {
 const blogs = [
   {
     title: "One Step Forward",
-    leadInText:
-      "Accepting the reality; your skill sets are not in demand right now, and it's time for new skills.",
     date: formatter.format(new Date(2024, 10)),
     body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   },
   {
     title: "Stuck in a Rut",
-    leadInText:
-      "What is it like losing your income, but your rent and utilities still goes on.",
     date: formatter.format(new Date(2024, 3)),
     body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   },
   {
     title: "4 Years in Fortune 500 Company",
-    leadInText: "It's good money, but is it happy soul?",
     date: formatter.format(new Date(2023, 7)),
     body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   },
   {
     title: "3 Years in Fortune 500 Company",
-    leadInText:
-      "The higher you go, the heavier your responsibilities. You wonder, how long can you carry this load?",
     date: formatter.format(new Date(2022, 7)),
     body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   },
   {
     title: "2 Years in Fortune 500 Company",
-    leadInText:
-      "Finally you able to catch your breath, but you know your respite is temporary.",
     date: formatter.format(new Date(2021, 7)),
     body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   },
@@ -59,11 +50,15 @@ app.get("/", (req, res) => {
   res.render("home.ejs", opts);
 });
 
-app.get("/write", (req, res) => {
-  res.render("write.ejs", opts);
+app.get("/manage", (req, res) => {
+  res.render("manage-blog.ejs", opts);
 });
 
-app.post("/write", (req, res) => {
+app.get("/blog/new", (req, res) => {
+  res.render("new-blog.ejs", opts);
+});
+
+app.post("/blog/new", (req, res) => {
   const body = req.body;
 
   // Check if values in body are empty. Return true if even 1 data is missing.
@@ -76,7 +71,6 @@ app.post("/write", (req, res) => {
   } else {
     blogs.unshift({
       title: body.title,
-      leadInText: body.leadInText,
       date: formatter.format(new Date()),
       body: body.body,
     });
@@ -87,6 +81,40 @@ app.post("/write", (req, res) => {
 
 app.get("/blog/:id", (req, res) => {
   res.render("blog.ejs", { blog: blogs[req.params.id], isAuth: opts.isAuth });
+});
+
+app.get("/blog/:id/edit", (req, res) => {
+  res.render("new-blog.ejs", {
+    blogId: req.params.id,
+    blog: blogs[req.params.id],
+    isAuth: opts.isAuth,
+  });
+});
+
+app.post("/blog/:id/edit", (req, res) => {
+  const body = req.body;
+
+  // Check if values in body are empty. Return true if even 1 data is missing.
+  const isEmpty = Object.values(body).some((value) => {
+    return value === "" || value === null || value === undefined;
+  });
+
+  if (isEmpty) {
+    res.status(400).send("Request body is missing one (or more) data");
+  } else {
+    blogs[req.params.id] = {
+      title: body.title,
+      date: formatter.format(new Date()),
+      body: body.body,
+    };
+
+    res.render("home.ejs", opts);
+  }
+});
+
+app.post("/blog/:id/delete", (req, res) => {
+  blogs.splice(req.params.id, 1);
+  res.render("home.ejs", opts);
 });
 
 app.get("/login", (req, res) => {
