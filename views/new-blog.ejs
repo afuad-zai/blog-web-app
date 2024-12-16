@@ -1,40 +1,39 @@
 <%- include("partials/header.ejs") %>
-
-<div class="container" style="min-height: 78vh;">
-  <form method="post">
-    <label for="title">Title</label>
-    <input
-      type="textarea"
-      class="form-control"
-      id="title"
-      placeholder="Title"
-      name="title"
-      required
-      value="<%= locals.blog && locals.blog.title ? locals.blog.title : '' %>"
-    />
-    <br />
-    <label for="content">Content</label>
-    <textarea
-      class="form-control"
-      id="content"
-      placeholder="Content"
-      style="height: 58vh"
-      name="body"
-      required
-    ><%= locals.blog && locals.blog.body ? locals.blog.body : '' %></textarea>
-    <br />
-    <div class="d-flex justify-content-end gap-2">
-      <% if (!locals.blog || Object.keys(blog).length === 0) {%>
-      <button class="btn btn-dark" formaction="/blog/new">Save</button>
-      <% } else { %>
-      <button class="btn btn-dark" formaction="/blog/<%=blogId%>/delete">
-        Delete
-      </button>
-      <button class="btn btn-dark" formaction="/blog/<%=blogId%>/edit">
-        Save
-      </button>
-      <% } %>
-    </div>
-  </form>
-</div>
+<form method="post">
+  <label for="title">Title</label>
+  <input
+    type="textarea"
+    class="form-control"
+    id="title"
+    placeholder="Title"
+    name="title"
+    required
+    value="<%= locals.blog && locals.blog.title ? locals.blog.title : '' %>"
+  />
+  <br />
+  <label for="content">Content</label>
+  <textarea
+    class="form-control"
+    id="content"
+    placeholder="Content"
+    style="height: 58vh"
+    name="body"
+    required
+  >
+<%= locals.blog && locals.blog.body ? locals.blog.body : '' %></textarea
+  >
+  <br />
+  <div class="d-flex justify-content-end gap-2">
+    <% if (!locals.blog || Object.keys(blog).length === 0) {%>
+    <button class="btn btn-dark" formaction="/blog/new">Save</button>
+    <% } else { %>
+    <button class="btn btn-dark" formaction="/blog/<%=blogId%>/delete">
+      Delete
+    </button>
+    <button class="btn btn-dark" formaction="/blog/<%=blogId%>/edit">
+      Save
+    </button>
+    <% } %>
+  </div>
+</form>
 <%- include("partials/footer.ejs") %>

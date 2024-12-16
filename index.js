@@ -114,7 +114,7 @@ app.post("/blog/:id/edit", (req, res) => {
 
 app.post("/blog/:id/delete", (req, res) => {
   blogs.splice(req.params.id, 1);
-  res.render("home.ejs", opts);
+  res.render("manage-blog.ejs", opts);
 });
 
 app.get("/login", (req, res) => {
