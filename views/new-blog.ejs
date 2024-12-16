@@ -1,6 +1,6 @@
 <%- include("partials/header.ejs") %>
 
-<div class="container">
+<div class="container" style="min-height: 78vh;">
   <form method="post">
     <label for="title">Title</label>
     <input
@@ -18,7 +18,7 @@
       class="form-control"
       id="content"
       placeholder="Content"
-      style="min-height: 40vh"
+      style="height: 58vh"
       name="body"
       required
     ><%= locals.blog && locals.blog.body ? locals.blog.body : '' %></textarea>

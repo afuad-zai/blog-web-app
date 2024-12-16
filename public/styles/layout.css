@@ -1,0 +1,12 @@
+body > div.container {
+  padding-top: 1rem !important;
+}
+
+aside {
+    position: sticky; 
+    top: 40vh;
+}
+
+.blog-post {
+    padding-bottom: 3rem;
+}

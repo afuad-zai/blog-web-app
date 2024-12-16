@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/styles/layout.css" />
     <link rel="stylesheet" href="/styles/content.css" />
   </head>
-  <header class="p-3 text-bg-dark">
+  <header class="p-3 text-bg-dark sticky-top">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-start">
         <a
@@ -30,16 +30,16 @@
 
         <ul class="nav nav-pills">
           <% if (locals.isAuth && locals.isAuth == true) { %>
-            <li class="nav-item">
-              <a href="/blog/new" class="btn btn-warning">Write</a>
-            </li>
-            <li class="nav-item ms-2">
-              <a href="/manage" class="btn btn-outline-light">Manage Blog</a>
-            </li>
-            <li class="nav-item ms-2">
-              <a href="/logout" class="btn btn-outline-light">Logout</a>
-            </li>
-            <% } else { %>
+          <li class="nav-item">
+            <a href="/blog/new" class="btn btn-warning">Write</a>
+          </li>
+          <li class="nav-item ms-2">
+            <a href="/manage" class="btn btn-outline-light">Manage Blog</a>
+          </li>
+          <li class="nav-item ms-2">
+            <a href="/logout" class="btn btn-outline-light">Logout</a>
+          </li>
+          <% } else { %>
           <li class="nav-item">
             <a href="/login" class="btn btn-warning">Login</a>
           </li>
@@ -48,6 +48,4 @@
       </div>
     </div>
   </header>
-
-  <body class="d-flex flex-column min-vh-100">
-    <main class="container pt-3">
+  <body>

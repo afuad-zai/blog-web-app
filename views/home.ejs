@@ -1,4 +1,21 @@
 <%- include("partials/header.ejs") %>
-
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <aside>asfasfasfsdafsdfsdf</aside>
+    </div>
+    <div class="col">
+      <main>
+        <% for(var i=0; i < blogs.length; i++) { %>
+        <article class="blog-post">
+          <h2><%= blogs[i].title %></h2>
+          <p class="blog-post-meta"><%= blogs[i].date %></p>
+          <p><%= blogs[i].body %></p>
+        </article>
+        <% } %>
+      </main>
+    </div>
+  </div>
+</div>
 
 <%- include("partials/footer.ejs") %>
